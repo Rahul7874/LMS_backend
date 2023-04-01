@@ -7,6 +7,17 @@ require("dotenv").config()
 
 
 
+TrainerController.get("/alltrainer", async (req, res) => {
+    const trainer = await TrainerModel.find();
+    try {
+        res.status(200).send({
+            trainer: trainer,
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 TrainerController.post("/signup", async (req, res) => {
     try {
         const { fname, lname, mobno, email, password, position, company, education, skills, avatar, created, roles, isAdmin, isActive } = req.body;
@@ -110,16 +121,7 @@ TrainerController.delete("/delete/:id", async (req, res) => {
 });
 
 
-TrainerController.get("/alltrainer", async (req, res) => {
-    const trainer = await TrainerModel.find();
-    try {
-        res.status(200).send({
-            trainer: trainer,
-        });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+
 
 
 
